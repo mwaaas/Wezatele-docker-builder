@@ -1,0 +1,55 @@
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[inet_http_server]         ; inet (TCP) server disabled by default
+port=127.0.0.1:9012        ; (ip_address:port specifier, *:port for all iface)
+
+[supervisorctl]
+serverurl=http://127.0.0.1:9012 ; use an http:// url to specify an inet socket
+
+[group:{{ APP_NAME }}]
+programs=gunicorn,celery,celerybeat,celeryflower
+
+[program:gunicorn]
+user={{ APP_USER }}
+directory={{ APP_DIR }}
+environment=DJANGO_SETTINGS_MODULE="{{ APP_NAME }}.settings.{{ APP_ENVIRONMENT }}",NEW_RELIC_CONFIG_FILE="{{ APP_DIR }}/mobile_loans/newrelic.ini",NEW_RELIC_ENVIRONMENT="{{ APP_ENVIRONMENT }}"
+command={{ APP_VIRTUALENV }}/bin/newrelic-admin run-program {{ APP_VIRTUALENV }}/bin/gunicorn mobile_loans.wsgi:application
+    --workers={{ GUNICORN_WORKERS }}
+    --bind="{{ GUNICORN_BIND_ADDRESS }}"
+     --access-logfile {{ APP_DIR }}/log/%(program_name)s_access.log
+stdout_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stderr_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stopasgroup=true
+startsecs=5
+
+[program:celery]
+user={{ APP_USER }}
+directory={{ APP_DIR }}
+environment=DJANGO_SETTINGS_MODULE="{{ APP_NAME }}.settings.{{ APP_ENVIRONMENT }}"
+command={{ APP_VIRTUALENV }}/bin/celery worker -A {{ APP_NAME }} --concurrency={{ CELERY_WORKERS }} -l info 
+stdout_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stderr_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stopasgroup=true
+startsecs=5
+
+[program:celerybeat]
+user={{ APP_USER }}
+directory={{ APP_DIR }}
+environment=DJANGO_SETTINGS_MODULE="{{ APP_NAME }}.settings.{{ APP_ENVIRONMENT }}"
+command={{ APP_VIRTUALENV }}/bin/celery -A {{ APP_NAME }} beat -l info 
+stdout_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stderr_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stopasgroup=true
+startsecs=5
+
+[program:celeryflower]
+user={{ APP_USER }}
+directory={{ APP_DIR }}
+environment=DJANGO_SETTINGS_MODULE="{{ APP_NAME }}.settings.{{ APP_ENVIRONMENT }}"
+command={{ APP_VIRTUALENV }}/bin/celery flower -A {{ APP_NAME }} --broker={{ BROKER }} --port={{ FLOWER_PORT }} --url_prefix="flower"
+    --basic_auth={{ FLOWER_USER }}:{{ FLOWER_PASSWORD }}
+stdout_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stderr_logfile={{ APP_DIR }}/log/%(program_name)s.log
+stopasgroup=true
+startsecs=5
