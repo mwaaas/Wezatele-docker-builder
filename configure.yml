@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
-  sudo: yes
   roles:
     - role: common
       tags:
