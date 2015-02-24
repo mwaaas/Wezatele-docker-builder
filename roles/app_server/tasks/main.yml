@@ -23,10 +23,9 @@
   command: pip install --upgrade pip
 
 - name: Install application requirements
-      pip: >
-        requirements=requirements.txt
-      tags:
-        - pip
+  pip: requirements=requirements.txt
+  tags:
+    - pip
 
 - name: Build dependencies for Python Postgres adapter
   command: sudo apt-get -y build-dep python-psycopg2
