@@ -28,14 +28,6 @@
     - virtualenv
     - virtualenvwrapper
 
-- name: Configure virtualenvwrapper
-  lineinfile: line="{{ item }}" dest={{ APP_HOME }}/.bashrc
-              backup=yes
-  with_items:
-    - export WORKON_HOME=$HOME/.virtualenvs
-    - source /usr/local/bin/virtualenvwrapper.sh
-
-
 - name: Build dependencies for Python Postgres adapter
   command: sudo apt-get -y build-dep python-psycopg2
 
