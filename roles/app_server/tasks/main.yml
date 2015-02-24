@@ -23,7 +23,7 @@
   command: pip install --upgrade pip
 
 - name: Install application requirements
-  pip: requirements=~/requirements.txt
+  pip: requirements=/requirements.txt
   tags:
     - pip
 
