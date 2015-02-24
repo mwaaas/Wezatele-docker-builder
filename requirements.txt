@@ -24,7 +24,6 @@ xmlbuilder
 lxml
 djrill
 shortuuid
-psycopg2
 newrelic
 flower
 django-fsm
