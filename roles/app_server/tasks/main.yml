@@ -27,9 +27,6 @@
   tags:
     - pip
 
-- name: Build dependencies for Python Postgres adapter
-  command: sudo apt-get -y build-dep python-psycopg2
-
 - name: Allow app to bind to port 80
   file: path=/etc/authbind/byport/80 state=touch
         owner={{ APP_USER }} group={{ APP_USER }} mode=755
