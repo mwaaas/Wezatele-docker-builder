@@ -41,13 +41,15 @@
 
 - name: Link to app-specific supervisor configuration
   file: >
-    src={{ APP_DIR }}/supervisord.conf
+    src=supervisord.conf
     dest=/etc/supervisor/conf.d/{{ APP_NAME }}.conf
     state=link force=yes
 
 - name: Create nginx site configuration
-  template: src=nginx.site.j2 
-            dest=/etc/nginx/sites-available/{{ APP_NAME }}
+  file: >
+     src=nginx.site.j2
+     dest=/etc/nginx/sites-available/{{ APP_NAME }}
+     state=link force=yes
   notify: 
     - reload nginx
   tags:
