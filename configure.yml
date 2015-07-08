@@ -6,3 +6,7 @@
         - common
     - role: app_server
       tags: django
+
+    - role: splunk-forwarder
+      sudo_user: splunk
+      tags: [ splunk ]
