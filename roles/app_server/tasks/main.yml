@@ -16,16 +16,10 @@
     - authbind
     - supervisor
     - postfix
-    - mercurial
     - rabbitmq-server
 
 - name: Ensure pip is up-to-date
   command: pip install --upgrade pip
-
-- name: Install application requirements
-  pip: requirements=/requirements.txt
-  tags:
-    - pip
 
 - name: Allow app to bind to port 80
   file: path=/etc/authbind/byport/80 state=touch
