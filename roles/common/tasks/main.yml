@@ -9,15 +9,20 @@
   with_items:
     - git
     - gcc
-    - ntp
-    - screen
-    - lynx-cur
-    - wget
-    - make
-    - ruby1.9.3
-    
-- name: Start ntp service
-  service: name=ntp enabled=yes state=started
+    - libjpeg-dev
+    - libfreetype6-dev
+    - zlib1g-dev
+    - libxslt1-dev
+    - build-essential
+    - python-dev
+    - python-boto
+    - python-pip
+    - supervisor
+
+- name: upgrade pip
+      pip: name=pip state=latest
+      tags:
+        - pip
 
 - name: Install SSH keys for authorized users
   authorized_key: 
