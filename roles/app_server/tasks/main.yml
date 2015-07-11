@@ -1,30 +1,6 @@
 ---
 # tasks file for app_server
 
-- name: Install system packages
-  apt: pkg={{ item }} state=present
-  with_items:
-    - default-jre
-    - libjpeg-dev
-    - libfreetype6-dev
-    - zlib1g-dev
-    - libxslt1-dev
-    - build-essential
-    - python-dev
-    - python-boto
-    - python-pip
-    - authbind
-    - supervisor
-    - postfix
-    - rabbitmq-server
-
-- name: Ensure pip is up-to-date
-  command: pip install --upgrade pip
-
-- name: Allow app to bind to port 80
-  file: path=/etc/authbind/byport/80 state=touch
-        owner={{ APP_USER }} group={{ APP_USER }} mode=755
-
 - name: Write supervisord.conf
   template: dest=/etc/supervisor/supervisord.conf
             src=supervisord.conf.j2
