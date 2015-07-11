@@ -39,29 +39,12 @@
     dest=/etc/supervisor/conf.d/{{ APP_NAME }}.conf
     state=link force=yes
 
-- name: Create nginx site configuration
-  file: >
-     src=nginx.site.j2
-     dest=/etc/nginx/sites-available/{{ APP_NAME }}
-     state=link force=yes
-  notify: 
-    - reload nginx
-  tags:
-    - nginx_conf
-
-- name: Create link to enable nginx site
-  file: path=/etc/nginx/sites-enabled/{{ APP_NAME }} 
-        src=/etc/nginx/sites-available/{{ APP_NAME }}
-        state=link
-  notify:
-    - reload nginx
-
-- name: Write logrotate.conf
-  template: src=logrotate.conf.j2 dest=/etc/logrotate.d/{{ APP_NAME }}
-            backup=yes
-
-- name: Schedule log rotation
-  cron: name="rotate {{ APP_NAME }} logs" special_time=hourly
-        job="/usr/sbin/logrotate /etc/logrotate.d/{{ APP_NAME }}"
+#- name: Write logrotate.conf
+#  template: src=logrotate.conf.j2 dest=/etc/logrotate.d/{{ APP_NAME }}
+#            backup=yes
+#
+#- name: Schedule log rotation
+#  cron: name="rotate {{ APP_NAME }} logs" special_time=hourly
+#        job="/usr/sbin/logrotate /etc/logrotate.d/{{ APP_NAME }}"
 
 
