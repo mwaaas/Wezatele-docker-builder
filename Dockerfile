@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM phusion/baseimage:0.9.16
 MAINTAINER mwas
 # prepare the image so that it can be configured by ansible roles
 RUN apt-get -y update
