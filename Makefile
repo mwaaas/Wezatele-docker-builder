@@ -1,7 +1,7 @@
 NAME=mwaaas/django
 
 build:
-	docker build . -t $(NAME):$(v) --rm docker
+	docker build  -t $(NAME):$(v) --rm .
 
 tag_latest:
 	docker tag $(NAME):$(v) $(NAME):latest
