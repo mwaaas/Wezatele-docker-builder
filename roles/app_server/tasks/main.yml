@@ -35,7 +35,7 @@
 
 - name: Link to app-specific supervisor configuration
   file: >
-    src=supervisord.conf
+    src=/root/config/supervisord.conf
     dest=/etc/supervisor/conf.d/{{ APP_NAME }}.conf
     state=link force=yes
 
