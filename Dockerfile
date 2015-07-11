@@ -13,6 +13,17 @@ ADD inventory /etc/ansible/hosts
 ADD . /tmp/devops
 WORKDIR /tmp/devops
 
-# Now run ansible playbook to configure and install packages
-RUN ansible-playbook configure.yml -c local
+# create a directory to be used to create links for configuration
+RUN mkdir config
 
+# Configure common packages
+RUN ansible-playbook common_config.yml -c local
+
+# Configure app server packages
+RUN ansible-playbook app_server_config.yml -c local
+
+# Change the working directory to root
+WORKDIR /root
+
+# delete devops was just used for configurations
+RUN rm -r /tmp/devops/
