@@ -20,9 +20,7 @@
     - supervisor
 
 - name: upgrade pip
-      pip: name=pip state=latest
-      tags:
-        - pip
+  pip: name=pip state=latest
 
 - name: Install SSH keys for authorized users
   authorized_key: 
