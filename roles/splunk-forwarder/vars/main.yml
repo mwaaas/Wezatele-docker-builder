@@ -1,4 +1,0 @@
-splunk_filename: splunkforwarder-6.1.2-213098-linux-2.6-amd64.deb
-credentials_filename: stormforwarder_4f930a7008f011e48ccd22000a9e07fe.spl
-storm_app_name: "{{ credentials_filename|replace('.spl', '') }}"
-storm_app_dir: /opt/splunkforwarder/etc/apps/{{ storm_app_name }}
