@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  roles:
+    - role: splunk-forwarder
+      sudo_user: splunk
+      tags: [ splunk ]
