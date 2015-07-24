@@ -10,7 +10,7 @@ test:
 	nosetests -sv
 
 push:
-	docker push $(NAME):$(v)
+	docker push quay.io/$(NAME):$(v)
 
 build_ansible_base:
 	docker build -t mwaaas/ansible_base:$(v) ansible_base_container
