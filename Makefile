@@ -1,4 +1,4 @@
-NAME=jumo/django
+NAME=quay.io/jumo/django
 
 build:
 	docker build  -t $(NAME):$(v) --rm .
@@ -10,7 +10,7 @@ test:
 	nosetests -sv
 
 push:
-	docker push quay.io/$(NAME):$(v)
+	docker push $(NAME):$(v)
 
 build_ansible_base:
 	docker build -t mwaaas/ansible_base:$(v) ansible_base_container
