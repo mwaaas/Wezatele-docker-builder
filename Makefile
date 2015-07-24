@@ -1,4 +1,4 @@
-NAME=mwaaas/django
+NAME=jumo/django
 
 build:
 	docker build  -t $(NAME):$(v) --rm .
