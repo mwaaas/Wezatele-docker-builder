@@ -10,3 +10,9 @@ RUN apt-get -y install ansible
 
 # install the latest pip
 RUN pip install pip --upgrade
+
+WORKDIR /root
+
+RUN mkdir code
+
+WORKDIR /root/code
