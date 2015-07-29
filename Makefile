@@ -1,7 +1,7 @@
 NAME=quay.io/jumo/django
 
 build:
-	docker build  -t $(NAME):$(v) --rm .
+	docker build  -t $(NAME):$(v) .
 
 tag_latest:
 	docker tag $(NAME):$(v) $(NAME):latest
