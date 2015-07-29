@@ -12,6 +12,8 @@ test:
 push:
 	docker push $(NAME):$(v)
 
+build_push_django: build push
+
 build_ansible_base:
 	docker build -t mwaaas/ansible_base:$(v) ansible_base_container
 
