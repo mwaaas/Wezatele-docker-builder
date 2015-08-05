@@ -12,6 +12,15 @@
   sudo_user: root
   user: name=splunk group=adm
 
+- name: add splunk credential files
+  copy: src=splunkclouduf.spl dest=/opt/splunkclouduf.spl
+
+- name: splunk license
+  command: /opt/splunkforwarder/bin/splunk start --accept-license creates=/opt/splunkforwarder/etc/users/splunk-system-user
+
+- name: setting up forwarder credentials
+  command: /opt/splunkforwarder/bin/splunk install app /opt/splunkclouduf.spl -auth admin:changeme
+
   # Fixes side effects of earlier Splunk tasks that ran as root
 - name: make splunk the owner of splunk directory
   sudo_user: root
