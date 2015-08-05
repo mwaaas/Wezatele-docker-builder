@@ -1,7 +1,7 @@
-NAME=mwaaas/django
+NAME=quay.io/jumo/django
 
 build:
-	docker build  -t $(NAME):$(v) --rm .
+	docker build  -t $(NAME):$(v) .
 
 tag_latest:
 	docker tag $(NAME):$(v) $(NAME):latest
@@ -11,6 +11,8 @@ test:
 
 push:
 	docker push $(NAME):$(v)
+
+build_push_django: build push
 
 build_ansible_base:
 	docker build -t mwaaas/ansible_base:$(v) ansible_base_container
